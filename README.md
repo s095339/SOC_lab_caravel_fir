@@ -18,7 +18,7 @@ source run_sim
 ## 協作者github指令:
 
 首先，把project複製下來
-> git clone git@github.com:s095339/SOC_lab_exmem_fir.git
+> git clone git@github.com:s095339/SOC_lab_caravel_fir.git
 
 開一個branch，這代表著你自己的開發線
 
