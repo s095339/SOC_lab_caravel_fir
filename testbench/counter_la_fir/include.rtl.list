@@ -12,6 +12,12 @@
 -v ../../rtl/user/WB_AXISIN.v
 -v ../../rtl/user/WB_AXISOUT.v
 
+-v ../../rtl/user/fir.v
+-v ../../rtl/user/bram11.v
+-v ../../rtl/user/bram12.v
+-v ../../rtl/user/axis_in.v
+-v ../../rtl/user/axis_out.v
+
 ## VIP
 -v ../../vip/tbuart.v
 -v ../../vip/spiflash.v

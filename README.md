@@ -31,9 +31,17 @@ source run_sim
 
 不要在main branch底下做事情
 
-然後就可以開始寫自己東西
+然後就可以開始寫自己的東西
 
->git add . \
+for 蕭翔
+你只會動到user_proj_example.counter.v 所以你要打的是
+> git add rtl/user/user_proj_example.counter.v
+
+for 佳詳
+你只會動到WB_AXILITE.v 所以要打的是
+> git add rtl/user/WB_AXILITE.v
+
+然後
 >git commit -m "your commit message" \
 >git push origin < your branch name >
 
