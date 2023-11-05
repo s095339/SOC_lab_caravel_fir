@@ -194,8 +194,10 @@ always@*
             else
                 next_state = STAT_IDLE;
         STAT_STORE_1_INPUT:
-            next_state = STAT_CAL;
-        
+            if(strm_valid)
+                next_state = STAT_CAL;
+            else    
+                next_state = STAT_STORE_1_INPUT;
         STAT_CAL:
         //TODO need modify
             if(one_input_finish & last_data_processing)
@@ -703,7 +705,10 @@ always@*
         STAT_IDLE:
             op_cnt_next = 0;
         STAT_STORE_1_INPUT:
-            op_cnt_next = op_cnt+5'd1;
+            if(strm_valid)
+                op_cnt_next = op_cnt+5'd1;
+            else
+                op_cnt_next = op_cnt;
         STAT_CAL:
             if(~equal_10_out)
                 op_cnt_next = op_cnt+5'd1;
@@ -748,7 +753,7 @@ always@(posedge axis_clk or negedge axis_rst_n)
 always@*
     case(state)
         STAT_STORE_1_INPUT:
-            data_ram_we = 1'b1;
+            data_ram_we = strm_valid;
         default:
             data_ram_we = 1'b0;
     endcase
