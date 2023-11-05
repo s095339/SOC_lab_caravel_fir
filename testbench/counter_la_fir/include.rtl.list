@@ -7,6 +7,11 @@
 -v ../../rtl/user/user_proj_example.counter.v
 -v ../../rtl/user/bram.v
 
+-v ../../rtl/user/WB_AXI.v
+-v ../../rtl/user/WB_AXILITE.v
+-v ../../rtl/user/WB_AXISIN.v
+-v ../../rtl/user/WB_AXISOUT.v
+
 ## VIP
 -v ../../vip/tbuart.v
 -v ../../vip/spiflash.v
