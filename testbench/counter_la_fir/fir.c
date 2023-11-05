@@ -25,19 +25,25 @@ reset, when start data transfer, i.e. 1st axi-stream data come in
 void __attribute__ ( ( section ( ".mprjram" ) ) ) initfir() {
 	//initial your fir
 
-	uint32_t data = get_wb(0x30000030);
-	//while(1){
+	// send tap data
 	for(uint8_t i = 0; i<N; i++){
-			send_wb(mprj_tapparam_base, taps[i]);
+
+		send_wb(mprj_tapparam_base, taps[i]);
 	}
-	//}
+	// read back tap data
+	for(uint8_t i = 0; i<N; i++){
+		
+	}
 
 
 }
 
 int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
-	initfir();
+	//initfir();
 	//write down your fir
+	for(int i=0;i<N;i++){
+		outputsignal[i] = i;
+	}
 	return outputsignal;
 }
 		

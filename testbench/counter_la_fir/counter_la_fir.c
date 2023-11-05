@@ -18,7 +18,6 @@
 // This include is relative to $CARAVEL_PATH (see Makefile)
 #include <defs.h>
 #include <stub.c>
-
 extern int* fir();
 
 // --------------------------------------------------------
@@ -127,6 +126,9 @@ void main()
 		}
 	}
 */	
+
+ 	(*(volatile uint32_t*)(0x30000000)) = 0xAB990000;
+
 	int* tmp = fir();
 	reg_mprj_datal = *tmp << 16;
 	reg_mprj_datal = *(tmp+1) << 16;
