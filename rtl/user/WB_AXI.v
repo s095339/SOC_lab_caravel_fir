@@ -300,7 +300,9 @@ WB_AXISOUT wb_axisout(
     .sm_tready(sm_tready)
 );
 
-// lab3========================
+//**************//
+//lab 3         //
+//**************//
 fir fir_U(
 //axilite ports
     //write(input)--
@@ -323,9 +325,9 @@ fir fir_U(
     .ss_tlast(ss_tlast),
     .ss_tready(ss_tready),
 
-    .sm_tvalid(ss_tvalid),
-    .sm_tdata(ss_tdata),
-    .sm_tlast(ss_tlast),
+    .sm_tvalid(sm_tvalid),
+    .sm_tdata(sm_tdata),
+    .sm_tlast(sm_tlast),
     .sm_tready(sm_tready),
 
     // ram for tap

@@ -195,16 +195,16 @@ module user_proj_example #(
     //
     WB_AXI wb_axi(
         //wb
-        .wb_clk_i(),
-        .wb_rst_i(),
-        .wbs_stb_i(),
-        .wbs_cyc_i(),
-        .wbs_we_i(),
-        .wbs_sel_i(),
-        .wbs_dat_i(),
-        .wbs_adr_i(),
-        .wbs_ack_o(),
-        .wbs_dat_o(),
+        .wb_clk_i(wb_clk_i),
+        .wb_rst_i(wb_rst_i),
+        .wbs_stb_i(wbs_stb_i),
+        .wbs_cyc_i(wbs_cyc_i),
+        .wbs_we_i(wbs_we_i),
+        .wbs_sel_i(wbs_sel_i),
+        .wbs_dat_i(wbs_dat_i),
+        .wbs_adr_i(wbs_adr_i),
+        .wbs_ack_o(wbs_ack_o),
+        .wbs_dat_o(wbs_dat_o),
         // Logic Analyzer Signals
         .la_data_in(la_data_in),
         .la_data_out(la_data_out),
