@@ -13,7 +13,7 @@
 // limitations under the License.
 // SPDX-License-Identifier: Apache-2.0
 
-`default_nettype none
+`default_nettype wire
 /*
  *-------------------------------------------------------------
  *
@@ -87,50 +87,104 @@ module user_proj_example #(
     wire valid;
     wire [3:0] wstrb;
     wire [31:0] la_write;
-    wire decoded;
+    reg  [1:0] decoded;
 
-    reg ready;
-    reg [BITS-17:0] delayed_count;
+    reg  ready;
+    reg  [BITS-17:0] delayed_count;
+    reg  [31:0] merged_output_data;
+    wire [31:0] BRAM_Do;
+    wire [31:0] output_data_WB_FIR;
+        
+    reg merged_output_ACK;
+    wire wbs_ack_BRAM;
+    wire wbs_ack_WB_FIR;
+
+    wire [3:0] BRAM_WE; // wstrb in lab4-1
+    
+    wire wbs_we_BRAM;
+    wire wbs_we_WB_FIR;
+    
+    assign wbs_we_BRAM=wbs_we_i;
+    assign wbs_we_WB_FIR=wbs_we_i;
+
+    wire [3:0] wbs_sel_BRAM;
+    wire [3:0] wbs_sel_WB_FIR;
+
+
+    wire [31:0] BRAM_adr;
+    wire [31:0] WB_FIR_adr; 
+
+    
+    wire [31:0] BRAM_Di;
+    wire [31:0] WB_FIR_Di;
+
+
+    reg wbs_stb_BRAM;
+    reg wbs_cyc_BRAM;
+    reg WB_FIR_stb;
+    reg WB_FIR_cyc;
+
+    /////////////////////sub module//////////////////////////////////
+    bram user_bram (
+        .CLK(clk),
+        .WE0(BRAM_WE),
+        .EN0(valid),
+        .Di0(BRAM_Di),
+        .Do0(BRAM_Do),
+        .A0 (BRAM_adr)
+    );
+
+    //0x3000_0000
+/*
+    WB_AXI wb_axi(
+        //wb
+        .wb_clk_i(wb_clk_i),
+        .wb_rst_i(wb_rst_i),
+        .wbs_stb_i(WB_FIR_stb),
+        .wbs_cyc_i(WB_FIR_cyc),
+        .wbs_we_i(wbs_we_WB_FIR),
+        .wbs_sel_i(wbs_sel_WB_FIR),
+        .wbs_dat_i(WB_FIR_Di),
+        .wbs_adr_i(WB_FIR_adr),
+        .wbs_ack_o(wbs_ack_o),
+        .wbs_dat_o(wbs_dat_o),
+        // Logic Analyzer Signals
+        .la_data_in(la_data_in),
+        .la_data_out(la_data_out),
+        .la_oenb(la_oenb)
+    );
+*/
+
+    //////////////////////////////////////////////////////////////////////////////////////
 
     // WB MI A
-    assign valid = wbs_cyc_i && wbs_stb_i && decoded; 
+    assign valid = wbs_cyc_i && wbs_stb_i && (decoded==2'd2); //decode==2'd2 為0x380
     assign wstrb = wbs_sel_i & {4{wbs_we_i}};
     assign wbs_dat_o = rdata;
     assign wdata = wbs_dat_i;
-    assign wbs_ack_o = ready;
+
 
     // IO
-    assign io_out = count;
+    assign io_out = merged_output_data;
     assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
 
     // IRQ
     assign irq = 3'b000; // Unused
+    
+    ////////////////////////// interface output //////////////////////////
+    assign wbs_dat_o = merged_output_data;
+
 
     // LA
-    assign la_data_out = {{(127-BITS){1'b0}}, count};
+    assign la_data_out = {{(127-BITS){1'b0}},  merged_output_data};
     // Assuming LA probes [63:32] are for controlling the count register  
     assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
     // Assuming LA probes [65:64] are for controlling the count clk & reset  
     assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
     assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
 
+ 
     /*
-    先備知識
-    去複習wb的interface 怎麼做read write，上課都有講過，所以有講義可以參考。
-
-
-    
-    目標：把wishbone interface的訊號按照MMIO分給 WB_AXI 和 exem
-    (decoder )
-    (1) 你需要宣告兩組wb的訊號線，他從input接近來，根據addr的不同，會把訊號分給這兩組，
-    一個接給WB_AXI 另一個給 EXEM
-    (2) 如果 wb是write的話 根據addr的不同，把他的訊號接給不同的地方
-    (3) 如果wb是read的話 根據addr的不同 判斷要傳回給SOC的wb資料是來自 WB_AXI 還是 EXEM 
-    (exem)
-    (4) 你可能需要修改exem的code 看狀況
-    (wb_axi)
-    (5) WB_AXI module的訊號 要由你來填入。
-
     test
     在提交給你的版本中，我會透過韌體 送一筆資料 0xAB990000 給0x30000000
     如果你的code是正確的(wb_write的部份) 你打開波形圖，去看你送給user project的訊號
@@ -152,15 +206,22 @@ module user_proj_example #(
     //Decoder                                              //
     //*****************************************************//
 
-    //TODO 我們需要更大的decoder
-    assign decoded = wbs_adr_i[31:20] == 12'h380 ? 1'b1 : 1'b0;
-    
+    //decode select
+    //12'h380 for BRAM
+    //12'h300 for FIR
+    always @* begin
+        case(wbs_adr_i[31:20])
+        12'h380: decoded=2'b10;
+        12'h300: decoded=2'b11;
+        default: decoded=2'b00;
+        endcase
+    end
+
 
     //*****************************************************//
     // exmen                                               //
     //*****************************************************//
 
-    //TODO 你可能會需要改這邊的code 看你設計
     always @(posedge clk) begin
         if (rst) begin
             ready <= 1'b0;
@@ -177,41 +238,96 @@ module user_proj_example #(
             end
         end
     end
-    // 0x3800_0000
-    bram user_bram (
-        .CLK(clk),
-        .WE0(wstrb),
-        .EN0(valid),
-        .Di0(wbs_dat_i),
-        .Do0(rdata),
-        .A0(wbs_adr_i)
-    );
 
-    //*****************************************************//
-    //wb_axi                                               //
-    //*****************************************************//
-    //0x3000_0000
-    // TODO 把你宣告給wb_axi的訊號線填進去
-    //
-    WB_AXI wb_axi(
-        //wb
-        .wb_clk_i(wb_clk_i),
-        .wb_rst_i(wb_rst_i),
-        .wbs_stb_i(wbs_stb_i),
-        .wbs_cyc_i(wbs_cyc_i),
-        .wbs_we_i(wbs_we_i),
-        .wbs_sel_i(wbs_sel_i),
-        .wbs_dat_i(wbs_dat_i),
-        .wbs_adr_i(wbs_adr_i),
-        .wbs_ack_o(wbs_ack_o),
-        .wbs_dat_o(wbs_dat_o),
-        // Logic Analyzer Signals
-        .la_data_in(la_data_in),
-        .la_data_out(la_data_out),
-        .la_oenb(la_oenb)
-    );
+///////////////////////////////// decode /////////////////////////////////
+
+    //stb cyc decode
+
+    always @* begin
+        case(decoded)
+        2'b10:begin
+            wbs_stb_BRAM=wbs_stb_i;
+            wbs_cyc_BRAM=wbs_cyc_i;
+            WB_FIR_stb=0;
+            WB_FIR_cyc=0;
+        end
+        2'b11:begin
+            wbs_stb_BRAM=0;
+            wbs_cyc_BRAM=0;
+            WB_FIR_stb=wbs_stb_i;
+            WB_FIR_cyc=wbs_cyc_i;
+        end
+        default:begin
+            wbs_stb_BRAM=0;
+            wbs_cyc_BRAM=0;
+            WB_FIR_stb=0;
+            WB_FIR_cyc=0;
+        end
+        endcase
+    end
+
+    
+    //wbs_adr_i
+    assign BRAM_adr   = (decoded==2'b10)?wbs_adr_i:32'd0;
+    assign WB_FIR_adr = (decoded==2'b11)?wbs_adr_i:32'd0;
+
+    //wbs_data_in
+    assign BRAM_Di    = (decoded==2'b10)?wbs_dat_i:32'd0;
+    assign WB_FIR_Di  = (decoded==2'b11)?wbs_dat_i:32'd0;
+    
+    //decode for merged_output
+    always @* begin
+        case(decoded)
+        2'b10:begin
+            merged_output_data = BRAM_Do;
+        end
+        2'b11:begin
+            merged_output_data = output_data_WB_FIR;
+        end
+        default:begin
+            merged_output_data = 0;
+        end
+        endcase
+    end
+
+
+        //decode for merged_output
+    always @* begin
+        case(decoded)
+        2'b10:begin
+            merged_output_ACK  = wbs_ack_BRAM;
+        end
+        2'b11:begin
+            merged_output_ACK  = wbs_ack_WB_FIR;
+        end
+        default:begin
+            merged_output_ACK  = 0;
+        end
+        endcase
+    end
+
+    ////////////////////////// output interface //////////////////////////
+    assign wbs_dat_o = merged_output_data;
+    assign wbs_ack_o = merged_output_ACK;
+
+    // IO
+    assign io_out = merged_output_data;
+    assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
+
+    // IRQ
+    assign irq = 3'b000;	// Not implemented here
+
+    // WB MI A
+    assign valid = wbs_cyc_BRAM && wbs_stb_BRAM && (decoded==2'b10); 
+    assign BRAM_WE = wbs_sel_BRAM & {4{wbs_we_BRAM}};
+    assign wbs_ack_BRAM = ready;
+    //wbs_sel
+    assign wbs_sel_BRAM=wbs_sel_i;
+    assign wbs_sel_WB_FIR=wbs_sel_i;
+
+
+
 endmodule
 
 
 
-`default_nettype wire
