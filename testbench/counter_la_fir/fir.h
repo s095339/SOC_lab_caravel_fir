@@ -10,15 +10,27 @@ int outputsignal[N];
 
 
 // wishbone
-#define mprj_base_addr 0x30000000
+#define mprj_base_addr      0x30000000
 // The offset
 #define mprj_blklvl_base 	0x30000000
-#define mprj_datlen_base 	0x30000010
+#define mprj_datlen      	0x30000010
 #define mprj_tapparam_base 	0x30000040
-#define mprj_axisin_base 	0x30000080
-#define mprj_axisout_base 	0x30000084
+#define fir_axisin 	        0x30000080
+#define fir_axisout 	    0x30000084
+#define checkbit            0x2600000c
+#define axisin_full         0x30000088
+#define axisout_empty       0x30000089
+//wishbone operation
 #define addr_offset(target, offset) (target+offset)
 #define send_wb(target,data) (*(volatile uint32_t*)(target)) = data
-#define get_wb(target)  (*(volatile uint32_t*)(target))
+#define read_wb(target)  (*(volatile uint32_t*)(target))
+
+
+// 
+#define data_len 600
+enum BLKLVL 
+{
+    ap_start, ap_done, ap_idle
+};
 
 #endif

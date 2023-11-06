@@ -189,11 +189,11 @@ always@*begin
     case(state)
         WBAXI_IDLE:
             if(wbs_cyc_i && 
-                (wbs_adr_i[7:0] >= 8'h00 && wbs_adr_i[7:0] < 8'h80)   
+                (wbs_adr_i[7:0] >= 8'h00 && wbs_adr_i[7:0] < 8'h80 && wbs_adr_i[7:0]!=8'h10)   
             )
                 next_state = WBAXI_LITE;
             else if(wbs_cyc_i && 
-                ((wbs_adr_i[7:0] >= 8'h80 && wbs_adr_i[7:0] < 8'h84) || wbs_adr_i[7:0] == 8'h88)
+                ((wbs_adr_i[7:0] >= 8'h80 && wbs_adr_i[7:0] < 8'h84) || wbs_adr_i[7:0] == 8'h88 || wbs_adr_i[7:0]==8'h10)
             )
                 next_state = WBAXI_SIN;
             else if(wbs_cyc_i && 
