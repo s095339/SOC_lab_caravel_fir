@@ -91,34 +91,37 @@ module user_proj_example #(
 
     reg  ready;
     reg  [BITS-17:0] delayed_count;
-    reg  [31:0] merged_output_data;
+    reg  [31:0] decoded_output_data;
     wire [31:0] BRAM_Do;
     wire [31:0] output_data_WB_FIR;
-        
-    reg merged_output_ACK;
+
+    //ack decode
+    reg decoded_output_ACK;
     wire wbs_ack_BRAM;
     wire wbs_ack_WB_FIR;
 
-    wire [3:0] BRAM_WE; // wstrb in lab4-1
+    //BRAM wstrb
+    wire [3:0] BRAM_WE; 
     
+    //wishbone write enable
     wire wbs_we_BRAM;
     wire wbs_we_WB_FIR;
-    
     assign wbs_we_BRAM=wbs_we_i;
     assign wbs_we_WB_FIR=wbs_we_i;
 
+    //wishbone select
     wire [3:0] wbs_sel_BRAM;
     wire [3:0] wbs_sel_WB_FIR;
 
-
+    //Bram , FIR address
     wire [31:0] BRAM_adr;
     wire [31:0] WB_FIR_adr; 
 
-    
+    //Bram , FIR data in
     wire [31:0] BRAM_Di;
     wire [31:0] WB_FIR_Di;
 
-
+    //cyc ,stb decoded signal
     reg wbs_stb_BRAM;
     reg wbs_cyc_BRAM;
     reg WB_FIR_stb;
@@ -165,18 +168,18 @@ module user_proj_example #(
 
 
     // IO
-    assign io_out = merged_output_data;
+    assign io_out = decoded_output_data;
     assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
 
     // IRQ
     assign irq = 3'b000; // Unused
     
     ////////////////////////// interface output //////////////////////////
-    assign wbs_dat_o = merged_output_data;
+    assign wbs_dat_o = decoded_output_data;
 
 
     // LA
-    assign la_data_out = {{(127-BITS){1'b0}},  merged_output_data};
+    assign la_data_out = {{(127-BITS){1'b0}},  decoded_output_data};
     // Assuming LA probes [63:32] are for controlling the count register  
     assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
     // Assuming LA probes [65:64] are for controlling the count clk & reset  
@@ -241,26 +244,38 @@ module user_proj_example #(
 
 ///////////////////////////////// decode /////////////////////////////////
 
-    //stb cyc decode
+    //stb decode
 
     always @* begin
         case(decoded)
         2'b10:begin
             wbs_stb_BRAM=wbs_stb_i;
-            wbs_cyc_BRAM=wbs_cyc_i;
             WB_FIR_stb=0;
-            WB_FIR_cyc=0;
         end
         2'b11:begin
             wbs_stb_BRAM=0;
-            wbs_cyc_BRAM=0;
             WB_FIR_stb=wbs_stb_i;
-            WB_FIR_cyc=wbs_cyc_i;
         end
         default:begin
             wbs_stb_BRAM=0;
-            wbs_cyc_BRAM=0;
             WB_FIR_stb=0;
+        end
+        endcase
+    end
+
+    //cyc decode
+    always @* begin
+        case(decoded)
+        2'b10:begin
+            wbs_cyc_BRAM=wbs_cyc_i;
+            WB_FIR_cyc=0;
+        end
+        2'b11:begin
+            wbs_cyc_BRAM=0;
+            WB_FIR_cyc=wbs_cyc_i;
+        end
+        default:begin
+            wbs_cyc_BRAM=0;
             WB_FIR_cyc=0;
         end
         endcase
@@ -275,43 +290,43 @@ module user_proj_example #(
     assign BRAM_Di    = (decoded==2'b10)?wbs_dat_i:32'd0;
     assign WB_FIR_Di  = (decoded==2'b11)?wbs_dat_i:32'd0;
     
-    //decode for merged_output
+    //decode for decoded_output
     always @* begin
         case(decoded)
         2'b10:begin
-            merged_output_data = BRAM_Do;
+            decoded_output_data = BRAM_Do;
         end
         2'b11:begin
-            merged_output_data = output_data_WB_FIR;
+            decoded_output_data = output_data_WB_FIR;
         end
         default:begin
-            merged_output_data = 0;
+            decoded_output_data = 0;
         end
         endcase
     end
 
 
-        //decode for merged_output
+        //decode for decoded_output
     always @* begin
         case(decoded)
         2'b10:begin
-            merged_output_ACK  = wbs_ack_BRAM;
+            decoded_output_ACK  = wbs_ack_BRAM;
         end
         2'b11:begin
-            merged_output_ACK  = wbs_ack_WB_FIR;
+            decoded_output_ACK  = wbs_ack_WB_FIR;
         end
         default:begin
-            merged_output_ACK  = 0;
+            decoded_output_ACK  = 0;
         end
         endcase
     end
 
     ////////////////////////// output interface //////////////////////////
-    assign wbs_dat_o = merged_output_data;
-    assign wbs_ack_o = merged_output_ACK;
+    assign wbs_dat_o = decoded_output_data;
+    assign wbs_ack_o = decoded_output_ACK;
 
     // IO
-    assign io_out = merged_output_data;
+    assign io_out = decoded_output_data;
     assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
 
     // IRQ
