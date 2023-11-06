@@ -135,7 +135,7 @@ module user_proj_example #(
     );
 
     //0x3000_0000
-/*
+
     WB_AXI wb_axi(
         //wb
         .wb_clk_i(wb_clk_i),
@@ -146,14 +146,14 @@ module user_proj_example #(
         .wbs_sel_i(wbs_sel_WB_FIR),
         .wbs_dat_i(WB_FIR_Di),
         .wbs_adr_i(WB_FIR_adr),
-        .wbs_ack_o(wbs_ack_o),
-        .wbs_dat_o(wbs_dat_o),
+        .wbs_ack_o(wbs_ack_WB_FIR),
+        .wbs_dat_o(output_data_WB_FIR),
         // Logic Analyzer Signals
         .la_data_in(la_data_in),
         .la_data_out(la_data_out),
         .la_oenb(la_oenb)
     );
-*/
+
 
     //////////////////////////////////////////////////////////////////////////////////////
 
