@@ -127,7 +127,7 @@ void main()
 	}
 */	
 
- 	(*(volatile uint32_t*)(0x30000000)) = 0xAB990000;
+	//(*(volatile uint32_t*)(0x30000000)) = 0xAB990000;
 
 	int* tmp = fir();
 	reg_mprj_datal = *tmp << 16;

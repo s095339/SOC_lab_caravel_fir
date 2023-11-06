@@ -22,17 +22,20 @@ reset, when start data transfer, i.e. 1st axi-stream data come in
 
 
 
+
 void __attribute__ ( ( section ( ".mprjram" ) ) ) initfir() {
 	//initial your fir
-
+	
+	send_wb(mprj_datlen, data_len);
 	// send tap data
 	for(uint8_t i = 0; i<N; i++){
-
-		send_wb(mprj_tapparam_base, taps[i]);
+		send_wb(addr_offset(mprj_tapparam_base,i<<2), taps[i]);
 	}
-	// read back tap data
+
+	// read back tap data for debugging
 	for(uint8_t i = 0; i<N; i++){
-		
+		int32_t register tmp =  read_wb(addr_offset(mprj_tapparam_base,i<<2));
+		send_wb(checkbit, tmp);
 	}
 
 
@@ -40,10 +43,21 @@ void __attribute__ ( ( section ( ".mprjram" ) ) ) initfir() {
 
 int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
 	//initfir();
-	//write down your fir
-	for(int i=0;i<N;i++){
-		outputsignal[i] = i;
+	enum BLKLVL blklvl;
+	send_wb(mprj_datlen, data_len);
+	// check ap_idle and send ap_start
+	//while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 0x00000004);
+	//send_wb(mprj_blklvl_base,  (1 << ap_start) );
+	int32_t register i = 0;
+	int32_t is_full = 0;
+	while(i<data_len){
+		if(read_wb(axisin_full) == 0x00000000){
+			send_wb(fir_axisin, i++);
+		}
+		
 	}
+	
+
 	return outputsignal;
 }
 		
