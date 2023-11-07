@@ -171,7 +171,7 @@ always@*
             dat_o = wbs_dat_axisin_o;
         end
         WBAXI_SOUT:begin
-            ack_o = wbs_ack_lite;
+            ack_o = wbs_ack_axisout;
             dat_o = wbs_dat_axisout_o;
         end
         default:begin
@@ -197,7 +197,7 @@ always@*begin
             )
                 next_state = WBAXI_SIN;
             else if(wbs_cyc_i && 
-                ((wbs_adr_i[7:0] >= 8'h84 && wbs_adr_i[7:0] < 8'h88) || wbs_adr_i[7:0] == 8'h89)
+                ((wbs_adr_i[7:0] >= 8'h84 && wbs_adr_i[7:0] < 8'h88) || wbs_adr_i[7:0] == 8'h90)
             )
                 next_state = WBAXI_SOUT;
             else

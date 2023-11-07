@@ -19,7 +19,7 @@ int outputsignal[N];
 #define fir_axisout 	    0x30000084
 #define checkbit            0x2600000c
 #define axisin_full         0x30000088
-#define axisout_empty       0x30000089
+#define axisout_empty       0x30000090
 //wishbone operation
 #define addr_offset(target, offset) (target+offset)
 #define send_wb(target,data) (*(volatile uint32_t*)(target)) = data

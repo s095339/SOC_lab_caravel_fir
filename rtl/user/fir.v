@@ -431,7 +431,7 @@ assign rdata = (lite_state == LITE_read)?
 //===internal signal=======
 //desti
 always@*begin
-    if(config_addr >= 12'h20)// taps
+    if(config_addr >= 12'h40)// taps
         desti = 1;
     else if(config_addr == 12'h10)// data_length(taps)
         desti = 1;
@@ -454,8 +454,8 @@ always@*
 //===destination: tap_ram====
 //config_tap_A
 always@*begin
-    if(config_addr >= 12'h20)// taps
-        config_tap_A = config_addr - 12'h20; //transform to tap_addr
+    if(config_addr >= 12'h40)// taps
+        config_tap_A = config_addr - 12'h40; //transform to tap_addr
     else if(config_addr == 12'h10)// data_length
         config_tap_A = 12'h10<<2;
     else
