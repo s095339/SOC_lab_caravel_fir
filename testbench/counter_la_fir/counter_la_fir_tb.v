@@ -140,7 +140,7 @@ module counter_la_fir_tb;
 		$dumpvars(0, counter_la_fir_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (250) begin
+		repeat (2500) begin
 			repeat (1000) @(posedge clock);
 			// $display("+1000 cycles");
 		end
