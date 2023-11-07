@@ -294,9 +294,9 @@ WB_AXISOUT wb_axisout(
     .wbs_ack_o(wbs_ack_axisout),
     .wbs_dat_o(wbs_dat_axisout_o),
 
-    .sm_tvalid(ss_tvalid),
-    .sm_tdata(ss_tdata),
-    .sm_tlast(ss_tlast),
+    .sm_tvalid(sm_tvalid),
+    .sm_tdata(sm_tdata),
+    .sm_tlast(sm_tlast),
     .sm_tready(sm_tready)
 );
 
