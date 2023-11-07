@@ -45,7 +45,7 @@ reg[32-1:0] dat_o_reg;
 wire is_full = (queue_cnt == InputFiFoDepth)?1'b1:1'b0;
 wire is_empty = (queue_cnt == InputFiFoDepth)? 1'b1:1'b0;
 wire axis_ready = ss_tready; // 如果fir跟axis要資料 axis_ready會設為1 此時不允許axis從wb讀資料 要等
-reg [32-1:0] queue [0:10-1];
+reg [32-1:0] queue [0:InputFiFoDepth-1];
 reg[4:0] queue_cnt,queue_cnt_next; // 存下一個要放的位置
 //axi_sender===============
 /*
