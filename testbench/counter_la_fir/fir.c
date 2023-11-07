@@ -28,45 +28,57 @@ void __attribute__ ( ( section ( ".mprjram" ) ) ) initfir() {
 	
 	send_wb(mprj_datlen, data_len);
 	// send tap data
-	for(uint32_t i = 0; i<N; i++){
+	for(uint32_t i = 0; i<11; i++){
 		send_wb(addr_offset(mprj_tapparam_base,i*4), taps[i]);
 	}
 
 	// read back tap data for debugging
-	for(uint32_t i = 0; i<N; i++){
+	for(uint32_t i = 0; i<11; i++){
 		int32_t register tmp =  read_wb(addr_offset(mprj_tapparam_base,i*4));
-		send_wb(checkbit, tmp);
+		send_wb(checkbit, tmp<<16);
 	}
 
 
 }
 
 int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
-	//initfir();
+	initfir();
 	enum BLKLVL blklvl;
 	int32_t rdata = 0;
 	rdata =read_wb(axisout_empty);
-	send_wb(mprj_datlen, data_len);
+
 	// check ap_idle and send ap_start
-	//while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 0x00000004);
-	//send_wb(mprj_blklvl_base,  (1 << ap_start) );
-	int32_t register i = 0;
+	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
+	send_wb(mprj_blklvl_base,  (1 << ap_start) );
+	int8_t register i,j = 0;
 	int32_t is_full = 0;
-	
-	
-	/*
-	while(i<data_len){
-		
-		if(read_wb(axisin_full) == 0x00000000){
+	while(j<data_len){
+		if(read_wb(axisin_full) == 0x00000000 && i<data_len){
 			send_wb(fir_axisin, i++);
 		}
-		
-		
-		
+		if(read_wb(axisout_empty) == 0x00000000){
+			int register tmp = read_wb(fir_axisout);
+			outputsignal[j++] = tmp;
+		}
 	}
-	*/
-	
+	while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 1<<ap_done);
+	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
 
+	send_wb(mprj_blklvl_base,  (1 << ap_start) );
+	i = 0;
+	j = 0;
+	while(j<data_len){
+		if(read_wb(axisin_full) == 0x00000000 && i<data_len){
+			send_wb(fir_axisin, i++);
+		}
+		if(read_wb(axisout_empty) == 0x00000000){
+			int register tmp = read_wb(fir_axisout);
+			outputsignal[j++] = tmp;
+		}
+	}
+	while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 1<<ap_done);
+	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
+	// finish
 	return outputsignal;
 }
 		
