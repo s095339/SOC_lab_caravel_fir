@@ -455,7 +455,7 @@ always@*
 //config_tap_A
 always@*begin
     if(config_addr >= 12'h40)// taps
-        config_tap_A = config_addr - 12'h40; //transform to tap_addr
+        config_tap_A = (config_addr - 12'h40)>>2; //transform to tap_addr
     else if(config_addr == 12'h10)// data_length
         config_tap_A = 12'h10<<2;
     else
@@ -738,7 +738,7 @@ always@(posedge axis_clk or negedge axis_rst_n)
 assign fir_ready =(state == STAT_CAL)? equal_10_out & ~strm_valid:
                   (state == STAT_STORE_1_INPUT)? ~strm_valid: 1'b0 ;
 //==========tap ram==========
-assign tap_ram_addr = (op_cnt<<2);
+assign tap_ram_addr = (op_cnt);
 assign tap_ram_out = tap_Do;
 //==========Data_ram_addr_ctrl==========
 always@(posedge axis_clk or negedge axis_rst_n)
@@ -763,7 +763,7 @@ always@*
 assign data_ram_addr_pre = data_ram_addr_start - op_cnt;
 assign data_ram_addr_plus = (data_ram_addr_pre <0)? (data_ram_addr_pre+5'd11) : data_ram_addr_pre;
 //==========Data_ram=============
-assign data_ram_addr = {5'b0000,data_ram_addr_plus,2'b00}; // << 2
+assign data_ram_addr = {7'b0000000,data_ram_addr_plus}; // << 2
 assign data_ram_out = data_Do;
 assign data_A = (state == STAT_IDLE )? tap_A:data_ram_addr;
 //assign data_A = data_ram_addr;

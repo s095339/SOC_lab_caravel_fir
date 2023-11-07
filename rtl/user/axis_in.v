@@ -50,7 +50,7 @@ always@*
             else
                 next_state = STRM_IDLE;
         STRM_WORK:
-            if(tready && tlast)
+            if(tready && tvalid && tlast)
                 next_state = STRM_IDLE;
             else
                 next_state = STRM_WORK;
@@ -106,7 +106,7 @@ assign strm_valid = strm_valid_reg;
 always@*
     case(state)
         STRM_IDLE:
-            strm_valid_reg_next = tready;
+            strm_valid_reg_next = tready & tvalid ;
         STRM_WORK:
             strm_valid_reg_next = tready & tvalid ;//fir_ready;
         STRM_LAST:
@@ -128,7 +128,7 @@ always@(posedge clk or negedge rst_n)
     if(~rst_n)
         axis_finish <= 1'b0;
     else
-        if(tready)
+        if(tready & tvalid)
             axis_finish <= tlast; 
         else
             axis_finish <= 1'b0;
