@@ -130,6 +130,10 @@ void main()
 	//(*(volatile uint32_t*)(0x30000000)) = 0xAB990000;
 
 	int* tmp = fir();
+	for(int i=0; i<32; i++ ){
+		reg_mprj_datal = tmp[i] << 16;
+	}
+	/*
 	reg_mprj_datal = *tmp << 16;
 	reg_mprj_datal = *(tmp+1) << 16;
 	reg_mprj_datal = *(tmp+2) << 16;
@@ -141,7 +145,7 @@ void main()
 	reg_mprj_datal = *(tmp+8) << 16;
 	reg_mprj_datal = *(tmp+9) << 16;
 	reg_mprj_datal = *(tmp+10) << 16;	
-
+	*/
 	//print("\n");
 	//print("Monitor: Test 1 Passed\n\n");	// Makes simulation very long!
 	reg_mprj_datal = 0xAB510000;

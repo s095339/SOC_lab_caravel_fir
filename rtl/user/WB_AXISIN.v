@@ -29,7 +29,7 @@ localparam STRMIN_DATLEN = 3'd1;
 localparam STRMIN_CKFULL = 3'd2;
 localparam STRMIN_SEND = 3'd3;
 
-localparam InputFiFoDepth = 5'd10;
+localparam InputFiFoDepth = 5'd2;
 wire decoded = (wbs_adr_i[31:24] == 8'h30)? 1'b1: 1'b0;
 //wb_receiver==========================
 wire valid = wbs_stb_i & wbs_we_i & wbs_cyc_i & decoded;//wb write 
@@ -43,7 +43,7 @@ reg[32-1:0] wb_data;
 reg[32-1:0] dat_o_reg;
 //queue=========================
 wire is_full = (queue_cnt == InputFiFoDepth)?1'b1:1'b0;
-wire is_empty = (queue_cnt == InputFiFoDepth)? 1'b1:1'b0;
+wire is_empty = (queue_cnt == 0)? 1'b1:1'b0;
 wire axis_ready = ss_tready; // 如果fir跟axis要資料 axis_ready會設為1 此時不允許axis從wb讀資料 要等
 reg [32-1:0] queue [0:InputFiFoDepth-1];
 reg[4:0] queue_cnt,queue_cnt_next; // 存下一個要放的位置
@@ -127,20 +127,15 @@ always@*
             data_len_next = data_len;
     endcase
 // for queue
-always@(posedge wb_clk_i or posedge wb_rst_i)
-    if(wb_rst_i)begin
+always@*
+    if(state == STRMIN_SEND && (~is_full &   ~(~is_empty & axis_ready)   ) )begin
+        wb_valid = valid & wbs_ack_o;
+        wb_data = wbs_dat_i;
+    end
+    else begin
         wb_valid <= 1'b0;
         wb_data <= 32'd0;
     end
-    else 
-        if(state == STRMIN_SEND && (~is_full &   ~(~is_empty & axis_ready)   ) )begin
-            wb_valid <= wbs_cyc_i;
-            wb_data <= wbs_dat_i;
-        end
-        else begin
-            wb_valid <= 1'b0;
-            wb_data <= 32'd0;
-        end
 
 // for isfull
 assign wbs_dat_o = dat_o_reg;
@@ -163,7 +158,7 @@ always@*
     if(axis_ready & ~is_empty & ss_tvalid)
         queue_cnt_next = queue_cnt - 5'd1; 
     // 從wb輸入
-    else if (wb_valid )
+    else if (wb_valid & wbs_adr_i[7:0] == 8'h80)
         queue_cnt_next = queue_cnt + 5'd1;
     else
         queue_cnt_next = queue_cnt;

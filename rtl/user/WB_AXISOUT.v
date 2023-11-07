@@ -27,7 +27,7 @@ localparam STRMOUT_CKEMPTY = 3'd1;
 localparam STRMOUT_RECV = 3'd2;
 reg [2:0]state, next_state;
 
-localparam OutputFiFoDepth = 5'd10;
+localparam OutputFiFoDepth = 5'd2;
 // axis_receiver
 wire axis_valid;
 wire [32-1:0]axis_data;
@@ -35,7 +35,7 @@ wire ready = wbs_cyc_i & wbs_stb_i & ~ wbs_we_i;
 // queue
 reg [5-1:0]queue_cnt, queue_cnt_next;
 wire is_full = (queue_cnt == OutputFiFoDepth)?1'b1:1'b0;
-wire is_empty = (queue_cnt == OutputFiFoDepth)? 1'b1:1'b0;
+wire is_empty = (queue_cnt == 0)? 1'b1:1'b0;
 reg fir_finish,fir_finish_next;
 reg [32-1:0] queue [0:OutputFiFoDepth-1];
 // wb_sender
@@ -101,7 +101,7 @@ always@*
         queue_cnt_next = queue_cnt + 5'd1;
     else if(sm_tvalid & sm_tready & fir_finish )
         queue_cnt_next = 5'd1;
-    else if(ready & wbs_ack_o)
+    else if(ready & wbs_ack_o &  wbs_adr_i[7:0] == 8'h84)
         queue_cnt_next = queue_cnt - 5'd1;
     else
         queue_cnt_next = queue_cnt;
@@ -117,7 +117,7 @@ always@(posedge wb_clk_i or posedge wb_rst_i)
         for(IHateSOC = 0; IHateSOC < OutputFiFoDepth; IHateSOC = IHateSOC + 1)
             queue[IHateSOC] <= queue[IHateSOC];
         //輸出
-        if(ready & wbs_ack_o )begin
+        if(ready & wbs_ack_o &wbs_adr_i[7:0] == 8'h84 )begin
             //有輸出 全部下移一個 shift
             for(shift_index = 1; shift_index < OutputFiFoDepth; shift_index = shift_index + 1)
                 queue[shift_index-1] <= queue[shift_index];
