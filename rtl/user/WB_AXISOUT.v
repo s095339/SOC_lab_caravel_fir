@@ -25,6 +25,7 @@ module WB_AXISOUT
 localparam STRMOUT_IDLE = 3'd0;
 localparam STRMOUT_CKEMPTY = 3'd1;
 localparam STRMOUT_RECV = 3'd2;
+localparam STRMOUT_WRITE = 3'd3;
 reg [2:0]state, next_state;
 
 localparam OutputFiFoDepth = 5'd2;
@@ -32,6 +33,7 @@ localparam OutputFiFoDepth = 5'd2;
 wire axis_valid;
 wire [32-1:0]axis_data;
 wire ready = wbs_cyc_i & wbs_stb_i & ~ wbs_we_i;
+wire valid = wbs_cyc_i & wbs_stb_i &   wbs_we_i;
 // queue
 reg [5-1:0]queue_cnt, queue_cnt_next;
 wire is_full = (queue_cnt == OutputFiFoDepth)?1'b1:1'b0;
@@ -52,8 +54,12 @@ always@*
                 next_state = STRMOUT_RECV;
             else if(wbs_adr_i[7:0] == 8'h90 && ready)
                 next_state = STRMOUT_CKEMPTY;
+            else if(wbs_adr_i[7:0] == 8'h90 && valid)
+                next_state = STRMOUT_WRITE;
             else
                 next_state = STRMOUT_IDLE;
+        STRMOUT_WRITE:
+            next_state = STRMOUT_IDLE;
         STRMOUT_RECV:
             //不一定秒回
             if(~is_empty & ~(~is_full & sm_tvalid))
@@ -63,6 +69,8 @@ always@*
         STRMOUT_CKEMPTY:
             next_state = STRMOUT_IDLE;
             //一定秒回
+        default:
+            next_state = STRMOUT_IDLE;
     endcase
 always@(posedge wb_clk_i or posedge wb_rst_i)
     if(wb_rst_i)
@@ -122,11 +130,11 @@ always@(posedge wb_clk_i or posedge wb_rst_i)
             for(shift_index = 1; shift_index < OutputFiFoDepth; shift_index = shift_index + 1)
                 queue[shift_index-1] <= queue[shift_index];
                 
-            queue[OutputFiFoDepth] <= 32'd0;
+            queue[OutputFiFoDepth-1] <= 32'd0;
         end
         // 從fir輸入
         else if ( sm_tvalid & sm_tready & ~fir_finish)
-            queue[queue_cnt] <= axis_data;
+            queue[queue_cnt-1] <= axis_data;
         else if(sm_tvalid & sm_tready & fir_finish )
             queue[0] <= axis_data;
     end
@@ -140,6 +148,8 @@ always@*
     case(state)
         STRMOUT_IDLE:
             ack_o_reg = 1'b0;
+        STRMOUT_WRITE:
+            ack_o_reg = 1'd1;
         STRMOUT_RECV:
             //不一定秒回
             if(~is_empty & ~(~is_full & sm_tvalid))
@@ -149,6 +159,8 @@ always@*
         STRMOUT_CKEMPTY:
             ack_o_reg = 1'b1;
             //一定秒回
+        default:
+            ack_o_reg = 1'b0;
     endcase
 always@*
     case(state)
@@ -163,5 +175,7 @@ always@*
         STRMOUT_CKEMPTY:
             data_o_reg = {{31{1'b0}}, is_empty};
             //一定秒回
+        default:
+            data_o_reg = 32'd0;
     endcase
 endmodule

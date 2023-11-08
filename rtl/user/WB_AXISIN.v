@@ -28,6 +28,7 @@ localparam STRMIN_IDLE = 3'd0;
 localparam STRMIN_DATLEN = 3'd1;
 localparam STRMIN_CKFULL = 3'd2;
 localparam STRMIN_SEND = 3'd3;
+localparam STRMIN_READ = 3'd4;
 
 localparam InputFiFoDepth = 5'd2;
 wire decoded = (wbs_adr_i[31:24] == 8'h30)? 1'b1: 1'b0;
@@ -41,12 +42,13 @@ reg wb_valid;
 reg[32-1:0] wb_data;
 //to isfull
 reg[32-1:0] dat_o_reg;
+
 //queue=========================
+reg[4:0] queue_cnt,queue_cnt_next; // 存下一個要放的位置
 wire is_full = (queue_cnt == InputFiFoDepth)?1'b1:1'b0;
 wire is_empty = (queue_cnt == 0)? 1'b1:1'b0;
 wire axis_ready = ss_tready; // 如果fir跟axis要資料 axis_ready會設為1 此時不允許axis從wb讀資料 要等
 reg [32-1:0] queue [0:InputFiFoDepth-1];
-reg[4:0] queue_cnt,queue_cnt_next; // 存下一個要放的位置
 //axi_sender===============
 /*
 assign ss_tdata = queue[0];
@@ -63,10 +65,14 @@ always@*
                 next_state = STRMIN_CKFULL;
             else if( wbs_adr_i[8-1:0] == 8'h80 &&  valid ) 
                 next_state = STRMIN_SEND;
+            else if( wbs_adr_i[8-1:0] == 8'h80 &&  ready)
+                next_state = STRMIN_READ;
             else if(wbs_adr_i[8-1:0] == 8'h10 &&  valid )
                 next_state = STRMIN_DATLEN;
             else
                 next_state = STRMIN_IDLE;
+        STRMIN_READ:
+            next_state = STRMIN_IDLE;
         STRMIN_DATLEN:
             //一定可以馬上讀回來
             next_state = STRMIN_IDLE;
@@ -106,6 +112,9 @@ always@*
                 wb_ack_reg = 1'b1;
             else
                  wb_ack_reg = 1'b0;
+        STRMIN_READ:
+            //馬上可以讀回來
+            wb_ack_reg = 1'b1;
         STRMIN_CKFULL:
             //馬上可以讀回來
             wb_ack_reg = 1'b1;
@@ -133,8 +142,8 @@ always@*
         wb_data = wbs_dat_i;
     end
     else begin
-        wb_valid <= 1'b0;
-        wb_data <= 32'd0;
+        wb_valid = 1'b0;
+        wb_data = 32'd0;
     end
 
 // for isfull
@@ -142,6 +151,8 @@ assign wbs_dat_o = dat_o_reg;
 always@(*)
     if(state == STRMIN_CKFULL)
         dat_o_reg <= { {31{1'b0}} ,is_full};
+    else if(state == STRMIN_READ)
+        dat_o_reg <= (queue_cnt > 5'd0)?queue[queue_cnt-5'd1]:32'd0;
     else
         dat_o_reg <= 32'd0;
 //***********//
@@ -179,7 +190,7 @@ always@(posedge wb_clk_i or posedge wb_rst_i)
             for(shift_index = 1; shift_index < InputFiFoDepth; shift_index = shift_index + 1)
                 queue[shift_index-1] <= queue[shift_index];
                 
-            queue[InputFiFoDepth] <= 32'd0;
+            queue[InputFiFoDepth-1] <= 32'd0;
         end
         // 從wb輸入
         else if (wb_valid )

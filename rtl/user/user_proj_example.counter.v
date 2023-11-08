@@ -43,10 +43,10 @@ module user_proj_example #(
     parameter BITS = 32,
     parameter DELAYS=10
 )(
-`ifdef USE_POWER_PINS
-    inout vccd1, // User area 1 1.8V supply
-    inout vssd1, // User area 1 digital ground
-`endif
+//`ifdef USE_POWER_PINS
+//    inout vccd1, // User area 1 1.8V supply
+//    inout vssd1, // User area 1 digital ground
+//`endif
 
     // Wishbone Slave ports (WB MI A)
     input wb_clk_i,
@@ -150,11 +150,7 @@ module user_proj_example #(
         .wbs_dat_i(WB_FIR_Di),
         .wbs_adr_i(WB_FIR_adr),
         .wbs_ack_o(wbs_ack_WB_FIR),
-        .wbs_dat_o(output_data_WB_FIR),
-        // Logic Analyzer Signals
-        .la_data_in(la_data_in),
-        .la_data_out(la_data_out),
-        .la_oenb(la_oenb)
+        .wbs_dat_o(output_data_WB_FIR)
     );
 
 
