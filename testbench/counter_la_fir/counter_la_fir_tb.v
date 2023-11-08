@@ -167,11 +167,28 @@ module counter_la_fir_tb;
 		//$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
 		//wait(checkbits == 16'd2669);
 		//$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
-
+		wait(checkbits == 16'h765A);
+		$display("checkbits is %h", checkbits);
+		@(posedge clock);
+		wait(checkbits == 16'h765A);
+		$display("checkbits is %h", checkbits);
+		@(posedge clock);
+		wait(checkbits == 16'h765A);
+		$display("checkbits is %h", checkbits);
+		@(posedge clock);
 		wait(checkbits == 16'hAB51);
 		$display("LA Test 2 passed");
 		#10000;
 		$finish;
+	end
+
+	reg[31:0] clk_count=0;
+	initial begin
+		wait(checkbits[7:0] == 8'hA5)
+		while(checkbits[7:0] !=8'h5A) @(posedge clock) clk_count = clk_count + 1;
+		
+		//wait(checkbits[7:0] == 8'h5A);
+		@(posedge clock) $display("lantency = %d clock cycles", clk_count);
 	end
 
 	initial begin

@@ -34,11 +34,7 @@ module WB_AXI
     input [31:0] wbs_dat_i,
     input [31:0] wbs_adr_i,
     output wbs_ack_o,
-    output [31:0] wbs_dat_o,
-    // Logic Analyzer Signals
-    input  [127:0] la_data_in,
-    output [127:0] la_data_out,
-    input  [127:0] la_oenb
+    output [31:0] wbs_dat_o
 );
 // state machine for wb interface.
 /*
