@@ -134,7 +134,7 @@ always@(posedge wb_clk_i or posedge wb_rst_i)
         end
         // 從fir輸入
         else if ( sm_tvalid & sm_tready & ~fir_finish)
-            queue[queue_cnt-1] <= axis_data;
+            queue[queue_cnt] <= axis_data;
         else if(sm_tvalid & sm_tready & fir_finish )
             queue[0] <= axis_data;
     end
