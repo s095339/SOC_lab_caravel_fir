@@ -1,0 +1,610 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed Nov  8 03:47:57 2023
+# Process ID: 32646
+# Current directory: /home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.runs/synth_1
+# Command line: vivado -log user_proj_example.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source user_proj_example.tcl
+# Log file: /home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.runs/synth_1/user_proj_example.vds
+# Journal file: /home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.runs/synth_1/vivado.jou
+# Running On: ubuntu2004, OS: Linux, CPU Frequency: 4199.996 MHz, CPU Physical cores: 4, Host memory: 21306 MB
+#-----------------------------------------------------------
+source user_proj_example.tcl -notrace
+Command: read_checkpoint -auto_incremental -incremental /home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.srcs/utils_1/imports/synth_1/user_proj_example.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from /home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.srcs/utils_1/imports/synth_1/user_proj_example.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top user_proj_example -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 32663
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_in' is not allowed [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:79]
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_out' is not allowed [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:80]
+WARNING: [Synth 8-9971] redeclaration of ansi port 'io_oeb' is not allowed [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:81]
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 2898.141 ; gain = 0.000 ; free physical = 7537 ; free virtual = 13299
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'user_proj_example' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:42]
+INFO: [Synth 8-6157] synthesizing module 'bram' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/bram.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'bram' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/bram.v:1]
+INFO: [Synth 8-6157] synthesizing module 'WB_AXI' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXI.v:22]
+INFO: [Synth 8-6157] synthesizing module 'WB_AXILITE' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXILITE.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'WB_AXILITE' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXILITE.v:4]
+INFO: [Synth 8-6157] synthesizing module 'WB_AXISIN' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXISIN.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'WB_AXISIN' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXISIN.v:1]
+INFO: [Synth 8-6157] synthesizing module 'WB_AXISOUT' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXISOUT.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'WB_AXISOUT' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXISOUT.v:1]
+INFO: [Synth 8-6157] synthesizing module 'fir' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/fir.v:9]
+INFO: [Synth 8-6157] synthesizing module 'axis_in' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_in.v:2]
+INFO: [Synth 8-6155] done synthesizing module 'axis_in' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_in.v:2]
+INFO: [Synth 8-6157] synthesizing module 'axis_out' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_out.v:1]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_out.v:31]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_out.v:58]
+INFO: [Synth 8-226] default block is never used [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_out.v:80]
+INFO: [Synth 8-6155] done synthesizing module 'axis_out' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/axis_out.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'fir' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/fir.v:9]
+INFO: [Synth 8-6157] synthesizing module 'bram11' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/bram11.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'bram11' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/bram11.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'WB_AXI' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXI.v:22]
+INFO: [Synth 8-6155] done synthesizing module 'user_proj_example' (0#1) [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:42]
+WARNING: [Synth 8-3848] Net rdata in module/entity user_proj_example does not have driver. [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/user_proj_example.counter.v:83]
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[127] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[126] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[125] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[124] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[123] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[122] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[121] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[120] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[119] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[118] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[117] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[116] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[115] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[114] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[113] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[112] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[111] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[110] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[109] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[108] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[107] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[106] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[105] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[104] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[103] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[102] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[101] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[100] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[99] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[98] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[97] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[96] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[95] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[94] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[93] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[92] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[91] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[90] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[89] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[88] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[87] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[86] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[85] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[84] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[83] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[82] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[81] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[80] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[79] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[78] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[77] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[76] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[75] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[74] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[73] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[72] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[71] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[70] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[69] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[68] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[67] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[66] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[65] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[64] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[63] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[62] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[61] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[60] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[59] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[58] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[57] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[56] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[55] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[54] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[53] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[52] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[51] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[50] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[49] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[48] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[47] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[46] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[45] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[44] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[43] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[42] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[41] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[40] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[39] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[38] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[37] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[36] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[35] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[34] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[33] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port la_data_out[32] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port io_out[37] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port io_out[36] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port io_out[35] driven by constant 0
+WARNING: [Synth 8-3917] design user_proj_example has port io_out[34] driven by constant 0
+INFO: [Common 17-14] Message 'Synth 8-3917' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [Synth 8-7129] Port waddr[11] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[10] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[9] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[8] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[7] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[6] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[5] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port waddr[4] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[11] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[10] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[9] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[8] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[7] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[6] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[5] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port raddr[4] in module bram11 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[3] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[2] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[1] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[0] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[31] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[30] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[29] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[28] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[27] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[26] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[25] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[24] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[23] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[22] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[21] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[20] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[19] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[18] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[17] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[16] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[15] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[14] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[13] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[12] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[11] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[10] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[9] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[8] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[7] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[6] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[5] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[4] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[3] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[2] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[1] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_dat_i[0] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[31] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[30] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[29] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[28] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[27] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[26] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[25] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[24] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[23] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[22] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[21] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[20] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[19] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[18] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[17] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[16] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[15] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[14] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[13] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[12] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[11] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[10] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[9] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[8] in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port sm_tlast in module WB_AXISOUT is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[3] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[2] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[1] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_sel_i[0] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[23] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[22] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[21] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[20] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[19] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[18] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[17] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[16] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[15] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[14] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[13] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[12] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[11] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[10] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[9] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_adr_i[8] in module WB_AXISIN is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_clk_i in module WB_AXILITE is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wb_rst_i in module WB_AXILITE is either unconnected or has no load
+WARNING: [Synth 8-7129] Port wbs_cyc_i in module WB_AXILITE is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 2898.141 ; gain = 0.000 ; free physical = 8610 ; free virtual = 14373
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 2898.141 ; gain = 0.000 ; free physical = 8612 ; free virtual = 14375
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8612 ; free virtual = 14375
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'WB_AXISIN'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'WB_AXISOUT'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'axis_in'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'WB_AXI'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+             STRMIN_IDLE |                              000 |                              000
+           STRMIN_CKFULL |                              001 |                              010
+             STRMIN_SEND |                              010 |                              011
+             STRMIN_READ |                              011 |                              100
+           STRMIN_DATLEN |                              100 |                              001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'WB_AXISIN'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+            STRMOUT_IDLE |                               00 |                              000
+            STRMOUT_RECV |                               01 |                              010
+         STRMOUT_CKEMPTY |                               10 |                              001
+           STRMOUT_WRITE |                               11 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'WB_AXISOUT'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+               STRM_IDLE |                                0 |                              000
+               STRM_WORK |                                1 |                              010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'axis_in'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+              WBAXI_IDLE |                               00 |                              000
+              WBAXI_LITE |                               01 |                              001
+               WBAXI_SIN |                               10 |                              010
+              WBAXI_SOUT |                               11 |                              011
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'WB_AXI'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8554 ; free virtual = 14318
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 3     
+	   2 Input   16 Bit       Adders := 1     
+	   2 Input   12 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 6     
+	   3 Input    5 Bit       Adders := 2     
++---Registers : 
+	               32 Bit    Registers := 14    
+	               16 Bit    Registers := 1     
+	               12 Bit    Registers := 2     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 5     
+	                3 Bit    Registers := 2     
+	                1 Bit    Registers := 13    
++---Multipliers : 
+	              32x32  Multipliers := 1     
++---RAMs : 
+	             128K Bit	(4096 X 32 bit)          RAMs := 1     
+	              352 Bit	(11 X 32 bit)          RAMs := 2     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 42    
+	   3 Input   32 Bit        Muxes := 2     
+	   4 Input   32 Bit        Muxes := 3     
+	   2 Input   16 Bit        Muxes := 1     
+	   4 Input   12 Bit        Muxes := 2     
+	   2 Input   12 Bit        Muxes := 6     
+	   3 Input   12 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 4     
+	   2 Input    5 Bit        Muxes := 8     
+	   4 Input    5 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 5     
+	   4 Input    4 Bit        Muxes := 1     
+	  11 Input    3 Bit        Muxes := 1     
+	   7 Input    3 Bit        Muxes := 3     
+	   2 Input    3 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 5     
+	   2 Input    2 Bit        Muxes := 21    
+	   3 Input    2 Bit        Muxes := 3     
+	   2 Input    1 Bit        Muxes := 73    
+	   5 Input    1 Bit        Muxes := 1     
+	   3 Input    1 Bit        Muxes := 2     
+	   4 Input    1 Bit        Muxes := 4     
+	   7 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP mul_out, operation Mode is: A*B.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: Generating DSP mul_out, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: Generating DSP mul_out, operation Mode is: A*B.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: Generating DSP mul_out, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+DSP Report: operator mul_out is absorbed into DSP mul_out.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name       | RTL Object        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|user_proj_example | user_bram/RAM_reg | 4 K x 32(READ_FIRST)   | W |   | 4 K x 32(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------------+-------------------------+-----------+----------------------+----------------+
+|Module Name       | RTL Object              | Inference | Size (Depth x Width) | Primitives     | 
++------------------+-------------------------+-----------+----------------------+----------------+
+|user_proj_example | wb_axi/tap_RAM/RAM_reg  | Implied   | 16 x 32              | RAM16X1S x 32  | 
+|user_proj_example | wb_axi/data_RAM/RAM_reg | Implied   | 16 x 32              | RAM16X1S x 32  | 
++------------------+-------------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|fir         | A*B            | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|fir         | (PCIN>>17)+A*B | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|fir         | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|fir         | (PCIN>>17)+A*B | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:13 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name       | RTL Object        | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|user_proj_example | user_bram/RAM_reg | 4 K x 32(READ_FIRST)   | W |   | 4 K x 32(WRITE_FIRST)  |   | R | Port A and B     | 0      | 4      | 
++------------------+-------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+
+Distributed RAM: Final Mapping Report
++------------------+-------------------------+-----------+----------------------+----------------+
+|Module Name       | RTL Object              | Inference | Size (Depth x Width) | Primitives     | 
++------------------+-------------------------+-----------+----------------------+----------------+
+|user_proj_example | wb_axi/tap_RAM/RAM_reg  | Implied   | 16 x 32              | RAM16X1S x 32  | 
+|user_proj_example | wb_axi/data_RAM/RAM_reg | Implied   | 16 x 32              | RAM16X1S x 32  | 
++------------------+-------------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance user_bram/RAM_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8276 ; free virtual = 14044
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8276 ; free virtual = 14044
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8276 ; free virtual = 14044
+---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin valid with 1st driver pin 'RAM_reg_0_i_2/O' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXI.v:60]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin valid with 2nd driver pin 'RAM_reg_0_i_3/O' [/home/ubuntu/m111061549/SOC/lab-caravel_fir/rtl/user/WB_AXI.v:60]
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        1|Failed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping   | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|fir         | A*B'          | 17     | 18     | -      | -      | 48     | 0    | 1    | -    | -    | -     | 0    | 0    | 
+|fir         | A'*B          | 17     | 17     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|fir         | PCIN>>17+A'*B | 17     | 18     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
++------------+---------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |    35|
+|3     |DSP48E1  |     3|
+|4     |LUT1     |    36|
+|5     |LUT2     |   171|
+|6     |LUT3     |   187|
+|7     |LUT4     |   273|
+|8     |LUT5     |    98|
+|9     |LUT6     |   255|
+|10    |RAM16X1S |    64|
+|11    |RAMB36E1 |     4|
+|12    |FDCE     |   415|
+|13    |FDPE     |     2|
+|14    |FDRE     |    81|
+|15    |IBUF     |    69|
+|16    |OBUF     |   240|
++------+---------+------+
+
+Report Instance Areas: 
++------+---------------+-----------+------+
+|      |Instance       |Module     |Cells |
++------+---------------+-----------+------+
+|1     |top            |           |  1934|
+|2     |  user_bram    |bram       |    89|
+|3     |  wb_axi       |WB_AXI     |  1490|
+|4     |    data_RAM   |bram11     |    64|
+|5     |    fir_U      |fir        |   743|
+|6     |      axisin   |axis_in    |   112|
+|7     |      axisout  |axis_out   |   134|
+|8     |    tap_RAM    |bram11_0   |    64|
+|9     |    wb_axisin  |WB_AXISIN  |   447|
+|10    |    wb_axisout |WB_AXISOUT |   168|
++------+---------------+-----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:13 ; elapsed = 00:00:16 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8277 ; free virtual = 14045
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 2 critical warnings and 1063 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:13 ; elapsed = 00:00:17 . Memory (MB): peak = 2906.145 ; gain = 8.004 ; free physical = 8294 ; free virtual = 14062
+Synthesis Optimization Complete : Time (s): cpu = 00:00:13 ; elapsed = 00:00:17 . Memory (MB): peak = 2906.152 ; gain = 8.004 ; free physical = 8294 ; free virtual = 14062
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2906.152 ; gain = 0.000 ; free physical = 8388 ; free virtual = 14156
+INFO: [Netlist 29-17] Analyzing 106 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2930.156 ; gain = 0.000 ; free physical = 8307 ; free virtual = 14075
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 64 instances were transformed.
+  RAM16X1S => RAM32X1S (RAMS32): 64 instances
+
+Synth Design complete, checksum: d0807e43
+INFO: [Common 17-83] Releasing license: Synthesis
+53 Infos, 205 Warnings, 2 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2930.156 ; gain = 32.016 ; free physical = 8508 ; free virtual = 14276
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint '/home/ubuntu/m111061549/SOC/vivado_lab4-2/vivado_lab4-2.runs/synth_1/user_proj_example.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file user_proj_example_utilization_synth.rpt -pb user_proj_example_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  8 03:48:23 2023...
