@@ -38,6 +38,7 @@ void __attribute__ ( ( section ( ".mprjram" ) ) ) initfir() {
 		send_wb(checkbit, tmp<<16);
 	}
 
+	
 
 }
 
@@ -46,8 +47,10 @@ int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
 	enum BLKLVL blklvl;
 	int32_t rdata = 0;
 	rdata =read_wb(axisout_empty);
-
+	
+	//***************************************************************//
 	// check ap_idle and send ap_start
+	send_wb(checkbit, 0x00A50000);
 	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
 	send_wb(mprj_blklvl_base,  (1 << ap_start) );
 	int8_t register i,j = 0;
@@ -63,7 +66,12 @@ int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
 	}
 	while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 1<<ap_done);
 	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
+	send_wb(checkbit, outputsignal[63]<<24 | 0x005A0000);
+	//***************************************************************//
 
+
+	//***************************************************************//
+	send_wb(checkbit, 0x00A50000);
 	send_wb(mprj_blklvl_base,  (1 << ap_start) );
 	i = 0;
 	j = 0;
@@ -78,6 +86,27 @@ int* __attribute__ ( ( section ( ".mprjram" ) ) ) fir(){
 	}
 	while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 1<<ap_done);
 	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
+	send_wb(checkbit, outputsignal[63]<<24 | 0x005A0000);
+	//***************************************************************//
+
+	//***************************************************************//
+	send_wb(checkbit, 0x00A50000);
+	send_wb(mprj_blklvl_base,  (1 << ap_start) );
+	i = 0;
+	j = 0;
+	while(j<data_len){
+		if(read_wb(axisin_full) == 0x00000000 && i<data_len){
+			send_wb(fir_axisin, i++);
+		}
+		if(read_wb(axisout_empty) == 0x00000000){
+			int register tmp = read_wb(fir_axisout);
+			outputsignal[j++] = tmp;
+		}
+	}
+	while( read_wb(mprj_blklvl_base) & (1<<ap_done ) != 1<<ap_done);
+	while( read_wb(mprj_blklvl_base) & (1<<ap_idle ) != 1<<ap_idle);
+	send_wb(checkbit, outputsignal[63]<<24 | 0x005A0000);
+	//***************************************************************//
 	// finish
 	return outputsignal;
 }

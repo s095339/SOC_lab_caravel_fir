@@ -22,8 +22,8 @@ int outputsignal[N];
 #define axisout_empty       0x30000090
 //wishbone operation
 #define addr_offset(target, offset) (target+offset)
-#define send_wb(target,data) (*(volatile uint32_t*)(target)) = data
-#define read_wb(target)  (*(volatile uint32_t*)(target))
+#define send_wb(target,data) (*(volatile uint32_t*)(target)) = data // send wishbone signal
+#define read_wb(target)  (*(volatile uint32_t*)(target))// wishbone read
 
 
 // 
